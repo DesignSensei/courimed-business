@@ -1,8 +1,9 @@
 // app/index.tsx
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Animated, StyleSheet, View, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Colors, { ColorScheme } from "@constants/Colors";
 import Images from "@constants/Images";
@@ -14,6 +15,7 @@ export default function SplashEntry() {
 
   const scale = useRef(new Animated.Value(0.6)).current;
   const opacity = useRef(new Animated.Value(0)).current;
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     const animation = Animated.sequence([
@@ -38,9 +40,15 @@ export default function SplashEntry() {
       Animated.delay(2000),
     ]);
 
-    animation.start(({ finished }) => {
+    animation.start(async ({ finished }) => {
       if (finished) {
-        router.replace("/(auth)");
+        const isLoggedIn = false;
+
+        if (isLoggedIn) {
+          router.replace("/(tabs)");
+        } else {
+          router.replace("/(auth)");
+        }
       }
     });
 

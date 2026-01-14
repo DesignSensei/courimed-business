@@ -21,6 +21,11 @@ export const Images = {
   system: {
     adaptiveIcon: require("../../assets/adaptive-icon.png"),
   },
+
+  auth: {
+    authOne: require("../../assets/images/auth-1.png"),
+    authTwo: require("../../assets/images/auth-2.png")
+  }
 } as const;
 
 export default Images;
